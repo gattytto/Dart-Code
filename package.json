@@ -2008,8 +2008,7 @@
 		]
 	},
 	"scripts": {
-		"ensure-icon-submodule": "if [ ! -f media/doc-icons/material/ac_unit@2x.png ]; then exit 999; fi",
-		"vscode:prepublish": "npm run ensure-icon-submodule && webpack --mode production",
+		"vscode:prepublish": "webpack --mode production",
 		"build": "webpack --mode development",
 		"build-with-instrumentation": "webpack --env.instrumentation --mode development",
 		"watch": "webpack --mode development --watch --info-verbosity verbose",
@@ -2045,9 +2044,9 @@
 		"nyc": "^15.1.0",
 		"sinon": "^7.5.0",
 		"source-map-support": "^0.5.19",
-		"ts-loader": "^8.0.2",
+		"ts-loader": "^8.0.3",
 		"tslint": "^6.1.3",
-		"typescript": "^3.9.7",
+		"typescript": "^4.0.2",
 		"vscode-debugadapter-testsupport": "^1.41.0",
 		"vscode-test": "^1.4.0",
 		"webpack": "^4.44.1",

@@ -403,15 +403,16 @@ export async function activate(context: vs.ExtensionContext, isRestart: boolean 
 
 	const pubApi = new PubApi(webClient);
 	const pubGlobal = new PubGlobal(logger, extContext, sdks, pubApi);
-
-	// Set up debug stuff.
 	const debugProvider = new DebugConfigProvider(logger, workspaceContext, analytics, pubGlobal, flutterDaemon, deviceManager, dartCapabilities, flutterCapabilities);
+	
+	if (vs.DebugConfigurationProviderTriggerKind) { // Workaround for GitPod not having this.
+	// Set up debug stuff.
 	context.subscriptions.push(vs.debug.registerDebugConfigurationProvider("dart", debugProvider));
 	context.subscriptions.push(vs.debug.registerDebugAdapterDescriptorFactory("dart", new DartDebugAdapterDescriptorFactory(context)));
 	// Also the providers for the initial configs.
 	context.subscriptions.push(vs.debug.registerDebugConfigurationProvider("dart", new InitialLaunchJsonDebugConfigProvider(), vs.DebugConfigurationProviderTriggerKind.Initial));
 	context.subscriptions.push(vs.debug.registerDebugConfigurationProvider("dart", new DynamicDebugConfigProvider(), vs.DebugConfigurationProviderTriggerKind.Dynamic));
-
+	}
 	if (config.flutterGutterIcons)
 		context.subscriptions.push(new FlutterColorDecorations(logger, path.join(context.globalStoragePath, "flutterColors")));
 
